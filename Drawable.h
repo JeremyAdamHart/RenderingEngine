@@ -11,7 +11,7 @@ class Drawable : public virtual Object{
 
 public:
 
-	Drawable(const glm::mat4 &model_matrix = glm::mat4(), Material *material = nullptr, GLGeometryContainer *geometry = nullptr);
+	Drawable(glm::vec3 position, glm::quat &orientation, Material *material, GLGeometryContainer *geometry);
 
 	Material *getMaterial(){ return material; }
 	void setMaterial(Material* newMaterial) { material = newMaterial; }

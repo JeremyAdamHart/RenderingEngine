@@ -5,6 +5,9 @@
 
 class Object {
 protected:
+	Object();
+	Object(glm::vec3 position, glm::quat orientation);
+
 	glm::quat orientation;
 	glm::vec3 position;
 public:
