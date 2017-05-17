@@ -98,5 +98,6 @@ void ElementGeometry::bindGeometry()
 int ElementGeometry::startIndex() { return 0; }
 int ElementGeometry::numElements() { return elementNum; }
 GLenum ElementGeometry::getMode() { return mode; }
+GLint ElementGeometry::getVaoID() { return vao; }
 
 bool ElementGeometry::usingDrawElements() { return true; }

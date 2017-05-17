@@ -125,7 +125,7 @@ GLuint createShader(const string &source, const string &defines, GLenum shaderTy
 	checkGLErrors("createShader");
 }
 
-GLuint createProgram(GLuint vertexShader, GLuint fragmentShader, GLuint tessControlShader, GLuint tessEvalShader)
+GLuint createGLProgram(GLuint vertexShader, GLuint fragmentShader, GLuint tessControlShader, GLuint tessEvalShader)
 {
 	GLuint program = glCreateProgram();
 
@@ -163,6 +163,57 @@ GLuint createProgram(GLuint vertexShader, GLuint fragmentShader, GLuint tessCont
 	checkGLErrors("createProgram");
 }
 
+GLuint createGLProgram(vector<pair<GLenum, string>> shaders,
+	map<GLenum, string> defines) 
+{
+	GLuint program = glCreateProgram();
+
+	vector<GLuint> shaderIDs(shaders.size());
+
+	for (int i = 0; i < shaderIDs.size(); i++) {
+		GLenum shaderType = shaders[i].first;
+		string shaderName = shaders[i].second;
+		cout << "Compiling " << shaderName << endl;
+		try{
+			string define = defines.at(shaders[i].first);
+			shaderIDs[i] = createShader(shaderName, define, shaderType);
+		}
+		catch (out_of_range) {
+			shaderIDs[i] = createShader(shaderName, shaderType);
+		}
+
+		if (shaderIDs[i]) glAttachShader(program, shaderIDs[i]);
+	}
+
+	GLint isLinked = 0;
+	glGetProgramiv(program, GL_LINK_STATUS, &isLinked);
+	if (isLinked == GL_FALSE)
+	{
+		int logSize = 0;
+		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &logSize);
+
+		string errorMessage(logSize, ' ');
+		glGetProgramInfoLog(program, logSize, NULL, &errorMessage[0]);
+
+		cout << "[Linking failed]" << endl << errorMessage.c_str() << endl;
+
+		glDeleteProgram(program);
+
+		return 0;
+	}
+
+	//Clean up shaders
+	for (int i = 0; i < shaderIDs.size(); i++) {
+		if (shaderIDs[i]) {
+			glDetachShader(program, shaderIDs[i]);
+			glDeleteShader(shaderIDs[i]);
+		}
+	}
+
+	checkGLErrors("createProgram");
+
+	return program;
+}
 
 bool checkGLErrors(string location){
 	bool error = false;

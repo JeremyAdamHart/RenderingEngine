@@ -4,8 +4,28 @@
 using namespace glm;
 
 Drawable::Drawable(glm::vec3 position, glm::quat &orientation, Material *material, GLGeometryContainer *geometry) : 
-	Object(position, orientation), material(material), geometry(geometry)
+	Object(position, orientation), 
+	material({ { material->getType(), material } }),
+	geometry(geometry)
 {}
+
+Material *Drawable::getMaterial(int type) {
+	try {
+		Material *m = material.at(type);
+		return m;
+	}
+	catch (out_of_range) {
+		return nullptr;
+	}
+}
+
+void Drawable::addMaterial(Material* newMaterial) {
+	material[newMaterial->getType()] = newMaterial;
+}
+
+bool Drawable::removeMaterial(int type) {
+	return material.erase(type);
+}
 
 /*void Drawable::loadUniforms(const mat4 &camera_matrix, const mat4 &projectionMatrix, 
 	const vec3 &viewPosition)

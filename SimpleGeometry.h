@@ -29,6 +29,7 @@ public:
 	virtual int startIndex() { return 0; }
 	virtual int numElements() { return bufferSize; }
 	virtual GLenum getMode() { return mode; }
+	virtual GLint getVaoID() { return vao; }
 
 	virtual bool usingDrawElements() { return false; }
 };
@@ -56,6 +57,7 @@ public:
 	virtual int startIndex() { return 0; }
 	virtual int numElements() { return bufferSize; }
 	virtual GLenum getMode() { return mode; }
+	virtual GLint getVaoID() { return vao; }
 
 	virtual bool usingDrawElements() { return false; }
 };

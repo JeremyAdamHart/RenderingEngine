@@ -155,9 +155,11 @@
     <ClInclude Include="GLGeometry.h" />
     <ClInclude Include="glmSupport.h" />
     <ClInclude Include="glSupport.h" />
+    <ClInclude Include="SimpleShader.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="Shader.h" />
     <ClInclude Include="SimpleGeometry.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -175,7 +177,9 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="RenderingEngine.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SimpleGeometry.cpp" />
+    <ClCompile Include="SimpleShader.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
