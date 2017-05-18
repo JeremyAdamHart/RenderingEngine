@@ -11,8 +11,8 @@ protected:
 	glm::quat orientation;
 	glm::vec3 position;
 public:
-	glm::quat getOrientationQuat();
-	glm::mat4 getOrientationMat4();
-	glm::mat4 getTransform();
-	glm::vec3 getPos();
+	glm::quat getOrientationQuat() const;
+	glm::mat4 getOrientationMat4() const;
+	glm::mat4 getTransform() const;
+	glm::vec3 getPos() const;
 };

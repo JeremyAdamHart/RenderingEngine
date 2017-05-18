@@ -4,10 +4,14 @@
 #include "Drawable.h"
 #include "Camera.h"
 #include "Scene.h"
+#include <vector>
 
 class SimpleShader : public Shader {
 protected:
+	vector<int> uniformLocations;
 
+	void calculateUniformLocations();
+	void loadUniforms(const glm::mat4& vp_matrix, const glm::mat4& m_matrix);
 public:
 	SimpleShader(map<GLenum, string> defines = {});
 	

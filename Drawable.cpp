@@ -27,6 +27,17 @@ bool Drawable::removeMaterial(int type) {
 	return material.erase(type);
 }
 
+bool Drawable::loadUniforms(int type, GLint *uniformLocations) const {
+	try {
+		material.at(type)->loadUniforms(uniformLocations);
+		return true;
+	}
+	catch (out_of_range) {
+		return false;
+	}
+
+}
+
 /*void Drawable::loadUniforms(const mat4 &camera_matrix, const mat4 &projectionMatrix, 
 	const vec3 &viewPosition)
 {

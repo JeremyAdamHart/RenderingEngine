@@ -18,11 +18,13 @@ protected:
 	GLGeometryContainer(){}
 
 public:
-	virtual void bindGeometry(){}
-	virtual int startIndex() { return 0; }
-	virtual int numElements() { return 0; }
-	virtual GLenum getMode() { return 0; }
-	virtual GLint getVaoID() { return -1; }		//Don't use to bind VAO, only for comparison
+	virtual void drawGeometry()const {}
 
-	virtual bool usingDrawElements() { return false; }
+	virtual void bindGeometry() const {}
+	virtual int startIndex() const { return 0; }
+	virtual int numElements() const { return 0; }
+	virtual GLenum getMode() const { return 0; }
+	virtual GLint getVaoID() const { return -1; }		//Don't use to bind VAO, only for comparison
+
+	virtual bool usingDrawElements() const { return false; }
 };

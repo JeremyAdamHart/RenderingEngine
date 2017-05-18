@@ -1,0 +1,21 @@
+#pragma once
+
+#include "Material.h"
+#include <glm/glm.hpp>
+
+extern const int COLOR_MAT;
+
+class ColorMat : public Material {
+public:
+	enum {
+		COLOR_LOCATION=0,
+		COUNT
+	};
+
+	glm::vec3 color;
+
+	ColorMat(glm::vec3 color=glm::vec3(1.f));
+
+	virtual int getType() const;
+	virtual void loadUniforms(GLint *locations) const;	//Must have already called useProgram
+};

@@ -8,5 +8,6 @@ class Material{
 protected:
 	Material(){}
 public:
-	virtual int getType();
+	virtual int getType() const;
+	virtual void loadUniforms(GLint *locations) const;
 };

@@ -3,13 +3,13 @@
 
 using namespace glm;
 
-quat Object::getOrientationQuat() {return orientation;}
+quat Object::getOrientationQuat() const {return orientation;}
 
-vec3 Object::getPos() {return position;}
+vec3 Object::getPos() const {return position;}
 
-mat4 Object::getOrientationMat4() { return toMat4(orientation); }
+mat4 Object::getOrientationMat4() const { return toMat4(orientation); }
 
-mat4 Object::getTransform() { return translateMatrix(getPos())*getOrientationMat4(); }
+mat4 Object::getTransform() const { return translateMatrix(getPos())*getOrientationMat4(); }
 
 Object::Object() :orientation(), position(0.f) {}
 

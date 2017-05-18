@@ -150,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="ColorMat.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="ElementGeometry.h" />
     <ClInclude Include="GLGeometry.h" />
@@ -168,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="ColorMat.cpp" />
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="ElementGeometry.cpp" />
     <ClCompile Include="glad.c" />

@@ -89,15 +89,20 @@ bool ElementGeometry::initializeVAO() {
 
 
 
-void ElementGeometry::bindGeometry()
+void ElementGeometry::bindGeometry() const
 {
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo[ELEMENTS]);
 }
 
-int ElementGeometry::startIndex() { return 0; }
-int ElementGeometry::numElements() { return elementNum; }
-GLenum ElementGeometry::getMode() { return mode; }
-GLint ElementGeometry::getVaoID() { return vao; }
+void ElementGeometry::drawGeometry() const {
+	bindGeometry();
+	glDrawElements(mode, elementNum, GL_UNSIGNED_INT, 0);
+}
 
-bool ElementGeometry::usingDrawElements() { return true; }
+int ElementGeometry::startIndex() const { return 0; }
+int ElementGeometry::numElements() const { return elementNum; }
+GLenum ElementGeometry::getMode() const { return mode; }
+GLint ElementGeometry::getVaoID() const { return vao; }
+
+bool ElementGeometry::usingDrawElements() const { return true; }

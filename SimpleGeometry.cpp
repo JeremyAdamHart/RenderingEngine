@@ -56,7 +56,12 @@ void SimpleGeometry::loadPositions(vec3 *positions, size_t numPositions, GLenum 
 	checkGLErrors("SimpleGeometry::loadPositions");
 }
 
-void SimpleGeometry::bindGeometry()
+void SimpleGeometry::drawGeometry() const {
+	bindGeometry();
+	glDrawArrays(mode, 0, bufferSize);
+}
+
+void SimpleGeometry::bindGeometry() const
 {
 	glBindVertexArray(vao);
 }
@@ -134,4 +139,8 @@ void SimpleTexGeometry::loadTexCoords(vec2 *texCoords, size_t numTexCoords, GLen
 void SimpleTexGeometry::bindGeometry()
 {
 	glBindVertexArray(vao);
+}
+
+void SimpleTexGeometry::drawGeometry() const {
+	glDrawArrays(mode, 0, bufferSize);
 }
