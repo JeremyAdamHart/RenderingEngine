@@ -21,6 +21,7 @@ SimpleShader::SimpleShader(map<GLenum, string> defines) {
 
 bool SimpleShader::createProgram(map<GLenum, string> defines) {
 	programID = createGLProgram(shaders, defines);
+
 	return programID != 0;
 }
 
@@ -49,5 +50,6 @@ void SimpleShader::draw(const Camera &cam, const Drawable &obj) {
 	obj.loadUniforms(COLOR_MAT, &uniformLocations[0]);	
 	
 	obj.getGeometry().drawGeometry();
+	glUseProgram(0);
 }
 

@@ -1,11 +1,11 @@
 // RenderingEngine.cpp : Defines the entry point for the console application.
 //
-
-#include "stdafx.h"
+#include "GLWindow.h"
 
 
 int main()
 {
-    return 0;
+	WindowManager wm;
+	wm.mainLoop();
 }
 

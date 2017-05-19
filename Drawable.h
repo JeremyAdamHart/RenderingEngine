@@ -12,14 +12,17 @@ protected:
 	GLGeometryContainer *geometry;
 
 public:
-	Drawable(glm::vec3 position, glm::quat &orientation, Material *material, GLGeometryContainer *geometry);
+	Drawable(Material *material, GLGeometryContainer *geometry,
+		glm::vec3 position=glm::vec3(0.f), glm::quat &orientation=glm::quat());
 
 	bool loadUniforms(int type, GLint *uniformLocations) const;
 
 	Material *getMaterial(int type);
+	GLGeometryContainer *getGeometryPtr(){ return geometry; }
+
 	void addMaterial(Material* newMaterial);
 	bool removeMaterial(int type);
-	GLGeometryContainer *getGeometryPtr(){ return geometry; }
+
 	void setGeometryContainer(GLGeometryContainer* newGeometry) { geometry = newGeometry; }
 	const GLGeometryContainer &getGeometry() const { return *geometry; }
 };

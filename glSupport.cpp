@@ -176,14 +176,19 @@ GLuint createGLProgram(vector<pair<GLenum, string>> shaders,
 		cout << "Compiling " << shaderName << endl;
 		try{
 			string define = defines.at(shaders[i].first);
-			shaderIDs[i] = createShader(shaderName, define, shaderType);
+			shaderIDs[i] = createShader(fileToString(shaderName), 
+				define, shaderType);
 		}
 		catch (out_of_range) {
-			shaderIDs[i] = createShader(shaderName, shaderType);
+			shaderIDs[i] = createShader(fileToString(shaderName), 
+										shaderType);
 		}
 
-		if (shaderIDs[i]) glAttachShader(program, shaderIDs[i]);
+		if (shaderIDs[i]) 
+			glAttachShader(program, shaderIDs[i]);
 	}
+
+	glLinkProgram(program);
 
 	GLint isLinked = 0;
 	glGetProgramiv(program, GL_LINK_STATUS, &isLinked);
