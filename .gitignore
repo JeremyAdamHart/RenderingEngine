@@ -52,3 +52,6 @@ Debug/RenderingEngine.tlog/CL.command.1.tlog
 *.tlog
 Debug/vc140.idb
 *.pdb
+Debug/RenderingEngine.Build.CppClean.log
+Release/RenderingEngine.Build.CppClean.log
+*.log

@@ -25,6 +25,9 @@
     <Filter Include="Source Files\Shaders">
       <UniqueIdentifier>{8f01694e-d255-4014-823f-83dcb0cf4499}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Texture">
+      <UniqueIdentifier>{57a9262c-f987-4fcb-a18a-db300d58a1d0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -84,6 +87,12 @@
     <ClInclude Include="GLWindow.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Source Files\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleTexManager.h">
+      <Filter>Source Files\Texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -139,6 +148,9 @@
     </ClCompile>
     <ClCompile Include="GLWindow.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files\Texture</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
