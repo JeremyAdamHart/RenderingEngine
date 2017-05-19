@@ -36,7 +36,7 @@ public:
 
 	void newTexture(GLuint texID, TexInfo info);
 	void deleteTexture();
-	GLenum getTexUnit();
+	GLenum getTexUnit() const;
 
 	//Access info
 	size_t numDimensions() const;

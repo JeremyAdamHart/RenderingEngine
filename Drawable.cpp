@@ -36,5 +36,4 @@ bool Drawable::loadUniforms(int type, GLint *uniformLocations) const {
 	catch (out_of_range) {
 		return false;
 	}
-
 }

@@ -10,6 +10,8 @@ using namespace std;
 #include "SimpleShader.h"
 #include "ColorMat.h"
 #include "TrackballCamera.h"
+#include "SimpleTexManager.h"
+
 #include <glm/gtc/matrix_transform.hpp>
 
 WindowManager::WindowManager() :
@@ -62,6 +64,8 @@ void WindowManager::mainLoop() {
 		glm::perspective(90.f, 1.f, 0.1f, 3.f));
 
 	SimpleShader shader;
+
+	SimpleTexManager tm;
 
 	while (!glfwWindowShouldClose(window)) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

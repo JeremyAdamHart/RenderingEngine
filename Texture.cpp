@@ -34,7 +34,7 @@ void Texture::newTexture(GLuint newTexID, TexInfo newInfo) {
 	handle = manager->addTexture(*this);
 }
 
-GLenum Texture::getTexUnit() {
+GLenum Texture::getTexUnit() const {
 	return manager->requestTexUnit(handle);
 }
 
@@ -66,3 +66,8 @@ GLint Texture::getBorder() const { return info.border; }
 GLenum Texture::getFormat() const { return info.format; }
 GLenum Texture::getType() const { return info.type; }
 
+TextureManager::TextureManager() {}
+
+void TextureManager::removeTexture(int handle){}
+int TextureManager::addTexture(Texture tex) { return -1; }
+GLenum TextureManager::requestTexUnit(int handle) { return NO_ACTIVE_TEXTURE; }
