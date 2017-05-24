@@ -71,12 +71,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -155,10 +157,13 @@
     <ClInclude Include="ColorMat.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="ElementGeometry.h" />
+    <ClInclude Include="Framebuffer.h" />
     <ClInclude Include="GLGeometry.h" />
     <ClInclude Include="glmSupport.h" />
     <ClInclude Include="glSupport.h" />
     <ClInclude Include="GLWindow.h" />
+    <ClInclude Include="Light.h" />
+    <ClInclude Include="MeshInfoLoader.h" />
     <ClInclude Include="SimpleShader.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Object.h" />
@@ -166,9 +171,12 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SimpleGeometry.h" />
     <ClInclude Include="SimpleTexManager.h" />
+    <ClInclude Include="simpleTexShader.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TextureCreation.h" />
+    <ClInclude Include="TextureMat.h" />
     <ClInclude Include="TrackballCamera.h" />
     <ClInclude Include="TrackerCamera.h" />
   </ItemGroup>
@@ -177,11 +185,13 @@
     <ClCompile Include="ColorMat.cpp" />
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="ElementGeometry.cpp" />
+    <ClCompile Include="Framebuffer.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="glmSupport.cpp" />
     <ClCompile Include="glSupport.cpp" />
     <ClCompile Include="GLWindow.cpp" />
     <ClCompile Include="Material.cpp" />
+    <ClCompile Include="MeshInfoLoader.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="RenderingEngine.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -189,6 +199,7 @@
     <ClCompile Include="SimpleGeometry.cpp" />
     <ClCompile Include="SimpleShader.cpp" />
     <ClCompile Include="SimpleTexManager.cpp" />
+    <ClCompile Include="simpleTexShader.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -196,6 +207,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TextureCreation.cpp" />
+    <ClCompile Include="TextureMat.cpp" />
     <ClCompile Include="TrackballCamera.cpp" />
     <ClCompile Include="TrackerCamera.cpp" />
   </ItemGroup>

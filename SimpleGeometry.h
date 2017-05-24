@@ -59,7 +59,7 @@ public:
 	virtual void drawGeometry() const;
 
 	//Deprecated?
-	virtual void bindGeometry();
+	virtual void bindGeometry() const;
 	virtual int startIndex() { return 0; }
 	virtual int numElements() { return bufferSize; }
 	virtual GLenum getMode() { return mode; }

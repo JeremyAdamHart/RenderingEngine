@@ -3,25 +3,25 @@
 using namespace std;
 
 TexInfo::TexInfo() : dimensions(), target(0), level(-1), 
-	internalFormat(-1), border(-1), format(0), type(0)
+	internalFormat(-1), format(0), type(0)
 {}
 
 TexInfo::TexInfo(GLenum target, std::vector<int> dimensions, GLint level,
-	GLint border, GLenum format, GLenum type) :target(target), dimensions(dimensions),
-	level(level), border(border), format(format), type(type) {}
+	 GLenum format, GLint internalFormat, GLenum type) :target(target), dimensions(dimensions),
+	level(level), internalFormat(internalFormat), format(format), type(type) {}
 
 Texture::Texture() :texID(-1), manager(nullptr), handle(-1){}
 
 Texture::Texture(GLuint texID, TexInfo info, TextureManager *manager) :
 	texID(texID), info(info), manager(manager)
 {
-	handle = manager->addTexture(*this);
+	if(manager) handle = manager->addTexture(*this);
 }
 
 void Texture::deleteTexture() {
 	if(texID > 0)
 		glDeleteTextures(1, (GLuint*)&texID);
-	if(manager != nullptr)
+	if(manager)
 		manager->removeTexture(handle);
 	texID = -1;
 	handle = -1;
@@ -31,7 +31,7 @@ void Texture::newTexture(GLuint newTexID, TexInfo newInfo) {
 	deleteTexture();
 	texID = newTexID;
 	info = newInfo;
-	handle = manager->addTexture(*this);
+	if(manager) handle = manager->addTexture(*this);
 }
 
 GLenum Texture::getTexUnit() const {
@@ -60,11 +60,17 @@ int Texture::getDepth() const {
 		return -1;
 }
 
+void Texture::newTexManager(TextureManager *newManager) {
+	manager = newManager;
+	if (manager) manager->addTexture(*this);
+}
+
+int Texture::getID() const { return texID; }
 GLenum Texture::getTarget() const { return info.target; }
 GLint Texture::getLevel() const { return info.level; }
-GLint Texture::getBorder() const { return info.border; }
 GLenum Texture::getFormat() const { return info.format; }
 GLenum Texture::getType() const { return info.type; }
+GLint Texture::getInternalFormat() const { return info.internalFormat; }
 
 TextureManager::TextureManager() {}
 

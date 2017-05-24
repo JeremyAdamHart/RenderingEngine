@@ -8,6 +8,7 @@ class SimpleTexManager : public TextureManager{
 	vector<int> texUnits;
 
 	int counter;
+	int nextUnit;
 
 public:
 	SimpleTexManager();

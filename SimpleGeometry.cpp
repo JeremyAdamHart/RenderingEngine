@@ -25,10 +25,10 @@ bool SimpleGeometry::initializeVAO(){
 
 	glBindVertexArray(vao);
 
-	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(ATTRIB_LOCATION::POSITION);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[POSITION]);
 	glVertexAttribPointer(
-		0,					//Attribute
+		ATTRIB_LOCATION::POSITION,			//Attribute
 		3,					//# of components
 		GL_FLOAT,			//Type
 		GL_FALSE,			//Normalized?
@@ -89,10 +89,10 @@ bool SimpleTexGeometry::initializeVAO(){
 
 	glBindVertexArray(vao);
 
-	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(ATTRIB_LOCATION::POSITION);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[POSITION]);
 	glVertexAttribPointer(
-		0,					//Attribute
+		ATTRIB_LOCATION::POSITION,	//Attribute
 		3,					//# of components
 		GL_FLOAT,			//Type
 		GL_FALSE,			//Normalized?
@@ -100,10 +100,10 @@ bool SimpleTexGeometry::initializeVAO(){
 		(void*)0			//Offset
 		);
 
-	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(ATTRIB_LOCATION::TEX_COORD);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[TEXCOORD]);
 	glVertexAttribPointer(
-		1,					//Attribute
+		ATTRIB_LOCATION::TEX_COORD,					//Attribute
 		2,					//# of components
 		GL_FLOAT,			//Type
 		GL_FALSE,			//Normalized?
@@ -118,6 +118,7 @@ bool SimpleTexGeometry::initializeVAO(){
 
 void SimpleTexGeometry::loadGeometry(vec3 *positions, vec2 *texCoords, size_t elementNum)
 {
+	bindGeometry();
 	loadPositions(positions, elementNum);
 	loadTexCoords(texCoords, elementNum);
 
@@ -127,20 +128,21 @@ void SimpleTexGeometry::loadGeometry(vec3 *positions, vec2 *texCoords, size_t el
 void SimpleTexGeometry::loadPositions(vec3 *positions, size_t numPositions, GLenum usage)
 {
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[POSITION]);
-	glBufferData(GL_ARRAY_BUFFER, numPositions, positions, usage);
+	glBufferData(GL_ARRAY_BUFFER, numPositions*sizeof(vec3), positions, usage);
 }
 
 void SimpleTexGeometry::loadTexCoords(vec2 *texCoords, size_t numTexCoords, GLenum usage)
 {
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[TEXCOORD]);
-	glBufferData(GL_ARRAY_BUFFER, numTexCoords, texCoords, usage);
+	glBufferData(GL_ARRAY_BUFFER, numTexCoords*sizeof(vec2), texCoords, usage);
 }
 
-void SimpleTexGeometry::bindGeometry()
+void SimpleTexGeometry::bindGeometry() const
 {
 	glBindVertexArray(vao);
 }
 
 void SimpleTexGeometry::drawGeometry() const {
+	bindGeometry();
 	glDrawArrays(mode, 0, bufferSize);
 }

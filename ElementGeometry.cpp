@@ -20,16 +20,23 @@ void ElementGeometry::loadGeometry(vec3 *positions, vec3 *normals, vec2 *texCoor
 	size_t _bufferSize, size_t _elementNum, GLenum usage)
 {
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[POSITION]);
-	glBufferData(GL_ARRAY_BUFFER, _bufferSize * sizeof(vec3), positions, usage);
+	glBufferData(GL_ARRAY_BUFFER, _bufferSize * sizeof(vec3), 
+		positions, usage);
 
-	glBindBuffer(GL_ARRAY_BUFFER, vbo[NORMAL]);
-	glBufferData(GL_ARRAY_BUFFER, _bufferSize * sizeof(vec3), normals, usage);
-
-	glBindBuffer(GL_ARRAY_BUFFER, vbo[TEXCOORD]);
-	glBufferData(GL_ARRAY_BUFFER, _bufferSize * sizeof(vec2), texCoords, usage);
+	if (normals) {
+		glBindBuffer(GL_ARRAY_BUFFER, vbo[NORMAL]);
+		glBufferData(GL_ARRAY_BUFFER, _bufferSize * sizeof(vec3), 
+			normals, usage);
+	}
+	if (texCoords) {
+		glBindBuffer(GL_ARRAY_BUFFER, vbo[TEXCOORD]);
+		glBufferData(GL_ARRAY_BUFFER, _bufferSize * sizeof(vec2), 
+			texCoords, usage);
+	}
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo[ELEMENTS]);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementNum*sizeof(unsigned int), elements, usage);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementNum*sizeof(unsigned int), 
+		elements, usage);
 
 	bufferSize = _bufferSize;
 	elementNum = _elementNum;
@@ -45,10 +52,10 @@ bool ElementGeometry::initializeVAO() {
 
 	checkGLErrors("0");
 
-	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(ATTRIB_LOCATION::POSITION);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[POSITION]);
 	glVertexAttribPointer(
-		0,					//Attribute
+		ATTRIB_LOCATION::POSITION,			//Attribute
 		3,					//# of components
 		GL_FLOAT,			//Type
 		GL_FALSE,			//Normalized?
@@ -58,10 +65,10 @@ bool ElementGeometry::initializeVAO() {
 
 	checkGLErrors("1");
 
-	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(ATTRIB_LOCATION::NORMAL);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[NORMAL]);
 	glVertexAttribPointer(
-		1,					//Attribute
+		ATTRIB_LOCATION::NORMAL,		//Attribute
 		3,					//# of components
 		GL_FLOAT,			//Type
 		GL_FALSE,			//Normalized?
@@ -71,10 +78,10 @@ bool ElementGeometry::initializeVAO() {
 
 	checkGLErrors("2");
 
-	glEnableVertexAttribArray(2);
+	glEnableVertexAttribArray(ATTRIB_LOCATION::TEX_COORD);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[TEXCOORD]);
 	glVertexAttribPointer(
-		2,					//Attribute
+		ATTRIB_LOCATION::TEX_COORD,		//Attribute
 		2,					//# of components
 		GL_FLOAT,			//Type
 		GL_FALSE,			//Normalized?

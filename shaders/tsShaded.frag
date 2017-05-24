@@ -13,11 +13,10 @@ uniform vec3 camera_position;
 uniform sampler2D colorTexture;
 
 vec3 lightPos = vec3(1000.0, 1000.0, 1000.0);
-float ks = 0.5;
-float kd = 0.4;
-float alpha = 5.0;
-float ka = 0.3;
-const vec3 COLOR = vec3(1.0, 1.0, 1.0);
+uniform float ks = 0.5;
+uniform float kd = 0.4;
+uniform float alpha = 5.0;
+uniform float ka = 0.3;
 
 float torranceSparrowLighting(vec3 normal, vec3 position, vec3 viewPosition)
 {
@@ -31,11 +30,8 @@ float torranceSparrowLighting(vec3 normal, vec3 position, vec3 viewPosition)
 
 void main(void)
 {
-    // write colour output without modification
- //   FragmentColour = vec4(TessNormal, 1.0);
  	vec3 color = torranceSparrowLighting(normalize(FragmentNormal), ModelPosition, camera_position)
  	*texture(colorTexture, FragmentTexCoord).rgb;
 
-// 	color = normalize(ModelPosition - camera_position);
  	PixelColour = vec4(color, 1);
 }

@@ -14,13 +14,12 @@ struct TexInfo {
 	GLenum target;
 	GLint level;
 	GLint internalFormat;
-	GLint border;
 	GLenum format;
 	GLenum type;
 
 	TexInfo();
 	TexInfo(GLenum target, std::vector<int> dimensions, GLint level,
-		GLint border, GLenum format, GLenum type);
+	GLenum format, GLint internalFormat, GLenum type);
 };
 
 class Texture {
@@ -36,17 +35,19 @@ public:
 
 	void newTexture(GLuint texID, TexInfo info);
 	void deleteTexture();
+	void newTexManager(TextureManager *newManager);
 	GLenum getTexUnit() const;
 
-	//Access info
+	//Access info 
+	int getID() const;
 	size_t numDimensions() const;
 	int getWidth() const;
 	int getHeight() const;
 	int getDepth() const;
 	GLenum getTarget() const;
 	GLint getLevel() const;
-	GLint getBorder() const;
 	GLenum getFormat() const;
+	GLint getInternalFormat() const;
 	GLenum getType() const;
 };
 

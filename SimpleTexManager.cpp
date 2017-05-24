@@ -2,7 +2,7 @@
 #include <iostream>
 #include <limits>
 
-SimpleTexManager::SimpleTexManager():counter(0) {
+SimpleTexManager::SimpleTexManager():counter(0), nextUnit(0) {
 	int maxTexUnits = 0;
 	glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &maxTexUnits);
 	cout << "Max available texture units = " << maxTexUnits << endl;
@@ -25,25 +25,17 @@ int SimpleTexManager::addTexture(Texture tex) {
 
 //Change -> Use a most recent method
 GLenum SimpleTexManager::requestTexUnit(int handle) {
-	int texUnit = -1;
-
+	//If already bound
 	for (int i = 0; i < texUnits.size(); i++) {
-		if (texUnits[i] == -1) {
-			texUnits[i] = handle;
-			texUnit = i + 1;
-		}
+		if (texUnits[i] == handle)
+			return GL_TEXTURE0 + i + 1;
 	}
 
-	int minSize = 10000000000;
-	for (int i = 0; i < texUnits.size(); i++) {
-		int newSize = sizeOfTexture(textures[texUnits[i]]);
-		if (newSize < minSize)
-			texUnit = i+1; 
-	}
+	int texUnit = nextUnit;
+	nextUnit = ++nextUnit % texUnits.size();
 
 	texUnits[texUnit] = handle;
-
-	return GL_TEXTURE0 + texUnit;
+	return GL_TEXTURE0 + texUnit + 1;	//Because we're ignoring 0
 }
 
 int sizeOfTexture(const Texture &tex) {
