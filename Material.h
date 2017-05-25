@@ -6,6 +6,8 @@
 //All derived subclasses are singletons
 class Material{
 protected:
+	static int id_counter;
+
 	Material(){}
 public:
 	virtual int getType() const;

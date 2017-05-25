@@ -111,6 +111,12 @@
     <ClInclude Include="MeshInfoLoader.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="TorranceSparrowShader.h">
+      <Filter>Source Files\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadedMat.h">
+      <Filter>Source Files\Material</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -187,6 +193,12 @@
     </ClCompile>
     <ClCompile Include="MeshInfoLoader.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TorranceSparrowShader.cpp">
+      <Filter>Source Files\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadedMat.cpp">
+      <Filter>Source Files\Material</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

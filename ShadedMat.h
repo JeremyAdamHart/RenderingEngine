@@ -3,20 +3,26 @@
 #include "Material.h"
 #include "Texture.h"
 
-extern const int TEXTURE_MAT;
+extern const int SHADED_MAT;
 
-class TextureMat : public Material {
+class ShadedMat : public Material {
 public:
 	enum {
-		TEXTURE_LOCATION = 0,
+		KA_LOCATION=0,
+		KD_LOCATION,
+		KS_LOCATION,
+		ALPHA_LOCATION,
 		COUNT
 	};
 
 	static const int id;
 
-	Texture tex;
+	float ka;
+	float kd;
+	float ks;
+	float alpha;
 
-	TextureMat(Texture tex);
+	ShadedMat(float ka, float kd, float ks, float alpha);
 
 	virtual int getType() const;
 	virtual void loadUniforms(GLint *locations) const;	//Must have already called useProgram

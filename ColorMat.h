@@ -12,6 +12,8 @@ public:
 		COUNT
 	};
 
+	static const int id;
+
 	glm::vec3 color;
 
 	ColorMat(glm::vec3 color=glm::vec3(1.f));

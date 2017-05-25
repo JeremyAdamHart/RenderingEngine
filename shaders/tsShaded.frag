@@ -5,14 +5,19 @@
 out vec4 PixelColour;
 
 in vec3 ModelPosition;
-in vec2 FragmentTexCoord;
 in vec3 FragmentNormal;
+in vec2 FragmentTexCoord;
 
 uniform vec3 camera_position;
 
-uniform sampler2D colorTexture;
+#ifdef USING_TEXTURE
+	uniform sampler2D colorTexture;
+#else
+	uniform vec3 color;
+#endif
 
-vec3 lightPos = vec3(1000.0, 1000.0, 1000.0);
+
+uniform vec3 lightPos;
 uniform float ks = 0.5;
 uniform float kd = 0.4;
 uniform float alpha = 5.0;
@@ -21,7 +26,7 @@ uniform float ka = 0.3;
 float torranceSparrowLighting(vec3 normal, vec3 position, vec3 viewPosition)
 {
 	vec3 viewer = normalize(viewPosition - position);
-	vec3 light = normalize(lightPos);
+	vec3 light = normalize(lightPos - position);
 	vec3 h = normalize(viewer + light);
 
 	return ks*(alpha+2.0)*(0.5/M_PI) * clamp(pow(dot(normal, h), alpha), 0.0, 1.0)
@@ -30,8 +35,14 @@ float torranceSparrowLighting(vec3 normal, vec3 position, vec3 viewPosition)
 
 void main(void)
 {
+	#ifdef USING_TEXTURE
+		vec3 baseColor = texture(colorTexture, FragmentTexCoord).rgb
+	#else
+		vec3 baseColor = color;
+	#endif
+
  	vec3 color = torranceSparrowLighting(normalize(FragmentNormal), ModelPosition, camera_position)
- 	*texture(colorTexture, FragmentTexCoord).rgb;
+ 	*baseColor;
 
  	PixelColour = vec4(color, 1);
 }

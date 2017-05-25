@@ -164,6 +164,7 @@
     <ClInclude Include="GLWindow.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="MeshInfoLoader.h" />
+    <ClInclude Include="ShadedMat.h" />
     <ClInclude Include="SimpleShader.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Object.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureCreation.h" />
     <ClInclude Include="TextureMat.h" />
+    <ClInclude Include="TorranceSparrowShader.h" />
     <ClInclude Include="TrackballCamera.h" />
     <ClInclude Include="TrackerCamera.h" />
   </ItemGroup>
@@ -195,6 +197,7 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="RenderingEngine.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="ShadedMat.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SimpleGeometry.cpp" />
     <ClCompile Include="SimpleShader.cpp" />
@@ -209,6 +212,7 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureCreation.cpp" />
     <ClCompile Include="TextureMat.cpp" />
+    <ClCompile Include="TorranceSparrowShader.cpp" />
     <ClCompile Include="TrackballCamera.cpp" />
     <ClCompile Include="TrackerCamera.cpp" />
   </ItemGroup>

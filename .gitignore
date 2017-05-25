@@ -57,3 +57,4 @@ Release/RenderingEngine.Build.CppClean.log
 *.log
 *.exe
 RenderingEngine.ilk
+*.enc

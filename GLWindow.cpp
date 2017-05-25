@@ -15,6 +15,8 @@ using namespace std;
 #include "TextureCreation.h"
 #include "TextureMat.h"
 #include "MeshInfoLoader.h"
+#include "ShadedMat.h"
+#include "TorranceSparrowShader.h"
 
 
 #include <glm/gtc/matrix_transform.hpp>
@@ -52,6 +54,8 @@ window_width(800), window_height(800)
 	glfwSwapInterval(1);
 
 	glClearColor(1.f, 1.f, 1.f, 1.f);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
 
 	glViewport(0, 0, window_width, window_height);
 }
@@ -64,6 +68,8 @@ WindowManager::WindowManager(int width, int height, std::string name, glm::vec4 
 	initGlad();
 
 	glClearColor(color.r, color.g, color.b, color.a);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
 
 	glViewport(0, 0, window_width, window_height);
 }
@@ -122,8 +128,22 @@ void WindowManager::mainLoop() {
 		vec2(0.f, 1.f)
 	};
 
+	//Dragon
+	ElementGeometry dragonGeom = objToElementGeometry("models/dragon.obj");
+	Drawable dragon(
+		new ColorMat(vec3(0.75f, 0.1f, 0.3f)),
+		&dragonGeom);
+	dragon.addMaterial(new ShadedMat(0.2f, 0.5f, 0.3f, 10.f));
+
 	SimpleTexManager tm;
 	Texture dogTexture = createTexture2D("textures/dog.png", &tm);
+
+	ColorMat cmat(vec3(0.f));
+	TextureMat tMat(dogTexture);
+	ShadedMat sMat(0, 0, 0, 0);
+	ColorMat cmat2(vec3(0.f));
+
+	int types[4] = { cmat.getType(), tMat.getType(), sMat.getType(), cmat2.getType() };
 
 	Drawable texSquare(
 		new TextureMat(dogTexture),
@@ -137,13 +157,14 @@ void WindowManager::mainLoop() {
 
 	SimpleTexShader texShader;
 	SimpleShader shader;
-
+	TorranceSparrowShader tsShader;
 
 	while (!glfwWindowShouldClose(window)) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 //		shader.draw(cam, square);
-		texShader.draw(cam, texSquare);
+//		texShader.draw(cam, texSquare);
+		tsShader.draw(cam, vec3(10.f, 10.f, 10.f), dragon);
 
 		glfwSwapBuffers(window);
 		glfwWaitEvents();
@@ -152,6 +173,12 @@ void WindowManager::mainLoop() {
 	delete square.getMaterial(COLOR_MAT);
 	delete square.getGeometryPtr();
 	dogTexture.deleteTexture();
+
+	delete texSquare.getMaterial(TEXTURE_MAT);
+	delete texSquare.getGeometryPtr();
+
+	delete dragon.getMaterial(COLOR_MAT);
+	delete dragon.getMaterial(SHADED_MAT);
 
 	glfwTerminate();
 }
