@@ -2,7 +2,7 @@
 
 int const COLOR_MAT = __COUNTER__;
 
-const int ColorMat::id = ++Material::id_counter;
+const int ColorMat::id = Material::getNextID();
 
 ColorMat::ColorMat(glm::vec3 color) :color(color) {}
 

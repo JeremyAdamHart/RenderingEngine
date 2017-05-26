@@ -2,7 +2,7 @@
 
 int const TEXTURE_MAT = __COUNTER__;
 
-const int TextureMat::id = ++Material::id_counter;
+const int TextureMat::id = Material::getNextID();
 
 TextureMat::TextureMat(Texture tex) :tex(tex) {}
 

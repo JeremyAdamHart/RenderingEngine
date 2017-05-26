@@ -2,7 +2,7 @@
 
 int const SHADED_MAT = __COUNTER__;
 
-const int ShadedMat::id = ++Material::id_counter;
+const int ShadedMat::id = Material::getNextID();
 
 ShadedMat::ShadedMat(float ka, float kd, float ks, float alpha) :
 	ka(ka), kd(kd), ks(ks), alpha(alpha) 

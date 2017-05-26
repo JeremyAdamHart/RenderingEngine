@@ -6,7 +6,7 @@
 //All derived subclasses are singletons
 class Material{
 protected:
-	static int id_counter;
+	static int getNextID();
 
 	Material(){}
 public:

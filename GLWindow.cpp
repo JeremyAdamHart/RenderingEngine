@@ -23,7 +23,7 @@ using namespace std;
 
 TrackballCamera cam(
 	vec3(0, 0, -1), vec3(0, 0, 1),
-	glm::perspective(90.f, 1.f, 0.1f, 3.f));
+	glm::perspective(90.f*3.14159f/180.f, 1.f, 0.1f, 3.f));
 
 void cursorPositionCallback(GLFWwindow *window, double xpos, double ypos) {
 	static vec2 lastPos = vec2(0.f, 0.f);
