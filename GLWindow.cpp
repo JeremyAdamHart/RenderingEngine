@@ -17,6 +17,7 @@ using namespace std;
 #include "MeshInfoLoader.h"
 #include "ShadedMat.h"
 #include "TorranceSparrowShader.h"
+#include "Framebuffer.h"
 
 
 #include <glm/gtc/matrix_transform.hpp>
@@ -77,33 +78,6 @@ WindowManager::WindowManager(int width, int height, std::string name, glm::vec4 
 //Temporary testing
 void WindowManager::mainLoop() {
 
-/*	//TEST TEXTURE MANAGER
-	SimpleTexManager tm;
-
-	Texture t1(0, TexInfo(), &tm);
-	Texture t2(0, TexInfo(), &tm);
-	Texture t3(0, TexInfo(), &tm);
-	Texture t4(0, TexInfo(), &tm);
-
-	int units[10];
-	units[0] = t3.getTexUnit();
-	units[1] = t2.getTexUnit();
-	units[2] = t3.getTexUnit();
-	units[3] = t1.getTexUnit();
-	units[4] = t4.getTexUnit();
-	units[5] = t3.getTexUnit();
-	units[6] = t4.getTexUnit();
-	units[7] = t1.getTexUnit();
-	units[8] = t1.getTexUnit();
-	units[9] = t2.getTexUnit();
-
-	t3.deleteTexture();
-	t2.deleteTexture();
-	t1.deleteTexture();
-	t4.deleteTexture();
-
-	//END TEST */
-
 	glfwSetCursorPosCallback(window, cursorPositionCallback);
 
 	vec3 points [6] = {
@@ -127,6 +101,19 @@ void WindowManager::mainLoop() {
 		vec2(0.f, 0.f),
 		vec2(0.f, 1.f)
 	};
+	SimpleTexManager tm;
+
+	Framebuffer fbWindow (window_width, window_height);
+	const int TEX_WIDTH = 800;
+	const int TEX_HEIGHT = 800;
+	Framebuffer fbTex = createNewFramebuffer(TEX_WIDTH, TEX_HEIGHT);
+	
+	if (fbTex.addTexture(createTexture2D(TEX_WIDTH, TEX_HEIGHT, &tm),
+		GL_COLOR_ATTACHMENT0) &&
+		fbTex.addTexture(createDepthTexture(TEX_WIDTH, TEX_HEIGHT, &tm),
+			GL_DEPTH_ATTACHMENT)) {
+		std::cout << "FBO creation failed" << endl;
+	}
 
 	//Dragon
 	ElementGeometry dragonGeom = objToElementGeometry("models/dragon.obj");
@@ -135,50 +122,58 @@ void WindowManager::mainLoop() {
 		&dragonGeom);
 	dragon.addMaterial(new ShadedMat(0.2f, 0.5f, 0.3f, 10.f));
 
-	SimpleTexManager tm;
 	Texture dogTexture = createTexture2D("textures/dog.png", &tm);
-
-	ColorMat cmat(vec3(0.f));
-	TextureMat tMat(dogTexture);
-	ShadedMat sMat(0, 0, 0, 0);
-	ColorMat cmat2(vec3(0.f));
-
-	int types[4] = { cmat.getType(), tMat.getType(), sMat.getType(), cmat2.getType() };
-
-	Drawable texSquare(
-		new TextureMat(dogTexture),
-		new SimpleTexGeometry(points, coords, 6, GL_TRIANGLES));
+	Texture cobbleTexture = createTexture2D("textures/cobble.jpg", &tm);
 
 	Drawable square(
 		new ColorMat(vec3(0.f, 0.f, 1.f)),
 		new SimpleGeometry(points, 6, GL_TRIANGLES));
 
-
+	Drawable texSquare(
+		new TextureMat(fbTex.getTexture(GL_COLOR_ATTACHMENT0)),
+//		new TextureMat(dogTexture),
+		new SimpleTexGeometry(points, coords, 6, GL_TRIANGLES));
 
 	SimpleTexShader texShader;
 	SimpleShader shader;
 	TorranceSparrowShader tsShader;
 
+	fbTex.use();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	tsShader.draw(cam, vec3(10.f, 10.f, 10.f), dragon);
+
+	fbWindow.use();
+
+
 	while (!glfwWindowShouldClose(window)) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 //		shader.draw(cam, square);
-//		texShader.draw(cam, texSquare);
+		texShader.draw(cam, texSquare);
+//		tsShader.draw(cam, vec3(10.f, 10.f, 10.f), dragon);
+
+/*		fbTex.use();
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		tsShader.draw(cam, vec3(10.f, 10.f, 10.f), dragon);
 
+		fbWindow.use();
+*/
 		glfwSwapBuffers(window);
 		glfwWaitEvents();
 	}
 
-	delete square.getMaterial(COLOR_MAT);
+	delete square.getMaterial(ColorMat::id);
 	delete square.getGeometryPtr();
-	dogTexture.deleteTexture();
+//	dogTexture.deleteTexture();
 
-	delete texSquare.getMaterial(TEXTURE_MAT);
+	delete texSquare.getMaterial(TextureMat::id);
 	delete texSquare.getGeometryPtr();
 
-	delete dragon.getMaterial(COLOR_MAT);
-	delete dragon.getMaterial(SHADED_MAT);
+	delete dragon.getMaterial(ColorMat::id);
+	delete dragon.getMaterial(ShadedMat::id);
+
+	fbTex.deleteFramebuffer();
+	fbTex.deleteTextures();
 
 	glfwTerminate();
 }

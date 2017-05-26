@@ -90,7 +90,7 @@ void TorranceSparrowShader::draw(const Camera &cam, vec3 lightPos,
 	else
 		obj.loadUniforms(ColorMat::id, &uniformLocations[ShadedMat::COUNT]);
 
-	obj.loadUniforms(SHADED_MAT, &uniformLocations[0]);
+	obj.loadUniforms(ShadedMat::id, &uniformLocations[0]);
 
 	obj.getGeometry().drawGeometry();
 	glUseProgram(0);

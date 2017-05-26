@@ -3,8 +3,6 @@
 #include "Material.h"
 #include "Texture.h"
 
-extern const int SHADED_MAT;
-
 class ShadedMat : public Material {
 public:
 	enum {

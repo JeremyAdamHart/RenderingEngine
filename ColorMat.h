@@ -3,8 +3,6 @@
 #include "Material.h"
 #include <glm/glm.hpp>
 
-extern const int COLOR_MAT;
-
 class ColorMat : public Material {
 public:
 	enum {

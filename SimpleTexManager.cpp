@@ -33,6 +33,8 @@ GLenum SimpleTexManager::requestTexUnit(int handle) {
 
 	int texUnit = nextUnit;
 	nextUnit = ++nextUnit % texUnits.size();
+	glActiveTexture(GL_TEXTURE0 + texUnit + 1);
+	glBindTexture(GL_TEXTURE_2D, textures[handle].getID());
 
 	texUnits[texUnit] = handle;
 	return GL_TEXTURE0 + texUnit + 1;	//Because we're ignoring 0

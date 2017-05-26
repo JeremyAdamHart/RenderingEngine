@@ -3,8 +3,6 @@
 #include "Material.h"
 #include "Texture.h"
 
-extern const int TEXTURE_MAT;
-
 class TextureMat : public Material {
 public:
 	enum {
